@@ -66,30 +66,76 @@ while frindge:
             print(item)
         break
 
-    # M - 1
-    if state.m >= 1:
-        newState = State(state.m-1, state.c, 1 - state.b)
-        if isValid(state):
-            newState.prev = state
-            frindge.append(newState)
 
-    # M - 2
-    if state.m >= 2:
-        newState = State(state.m - 2, state.c, 1 - state.b)
-        if isValid(state):
-            newState.prev = state
-            frindge.append(newState)
+    
+    if state.b == 1:
+        # M - 1
+        if state.m >= 1:
+            newState = State(state.m - 1, state.c, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
 
-    # C - 1
-    if state.c >= 1:
-        newState = State(state.m, state.c - 1, 1 - state.b)
-        if isValid(state):
-            newState.prev = state
-            frindge.append(newState)
+        # M - 2
+        if state.m >= 2:
+            newState = State(state.m - 2, state.c, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
 
-    # C - 2
-    if state.c >= 2:
-        newState = State(state.m, state.c - 2, 1 - state.b)
-        if isValid(state):
-            newState.prev = state
-            frindge.append(newState)
+        # C - 1
+        if state.c >= 1:
+            newState = State(state.m, state.c - 1, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
+
+        # C - 2
+        if state.c >= 2:
+            newState = State(state.m, state.c - 2, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
+
+        # M - 1 and C - 1
+        if state.m >= 1 and state.c >= 1:
+            newState = State(state.m - 1, state.c - 1, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
+
+    elif state.b == 0:
+        # M - 1
+        if state.m < M:
+            newState = State(state.m + 1, state.c, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
+
+        # M - 2
+        if state.m <= M - 2:
+            newState = State(state.m - 2, state.c, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
+
+        # C - 1
+        if state.c < C:
+            newState = State(state.m, state.c + 1, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
+
+        # C - 2
+        if state.c <= C - 2:
+            newState = State(state.m, state.c + 2, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
+
+        # M - 1 and C - 1
+        if state.m < M and state.c < C:
+            newState = State(state.m + 1, state.c + 1, 1 - state.b)
+            if isValid(state):
+                newState.prev = state
+                frindge.append(newState)
