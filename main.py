@@ -14,6 +14,7 @@ class State():
         self.c = cannibal
         self.b = boat
         self.prev = None
+        self.move = ''
 
     def __eq__(self, other):
         return self.m == other.m and \
@@ -21,7 +22,8 @@ class State():
                self.b == other.b
 
     def __str__(self):
-        return "[{},{},{}]".format(self.m, self.c, self.b)
+
+        return "{}\n[{},{},{}]".format(self.move, self.m, self.c, self.b)
 
     def is_goal(self):
         if self.m == 0 and self.c == 0 and self.b == 0:
@@ -67,13 +69,14 @@ while frindge:
         break
 
 
-    
+
     if state.b == 1:
         # M - 1
         if state.m >= 1:
             newState = State(state.m - 1, state.c, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '1 Missionary to opposite'
                 frindge.append(newState)
 
         # M - 2
@@ -81,6 +84,7 @@ while frindge:
             newState = State(state.m - 2, state.c, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '2 Missionaries to opposite'
                 frindge.append(newState)
 
         # C - 1
@@ -88,6 +92,7 @@ while frindge:
             newState = State(state.m, state.c - 1, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '1 Cannibal to opposite'
                 frindge.append(newState)
 
         # C - 2
@@ -95,6 +100,7 @@ while frindge:
             newState = State(state.m, state.c - 2, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '2 Cannibals to opposite'
                 frindge.append(newState)
 
         # M - 1 and C - 1
@@ -102,40 +108,46 @@ while frindge:
             newState = State(state.m - 1, state.c - 1, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '1 Missionary and 1 Cannibal to opposite'
                 frindge.append(newState)
 
     elif state.b == 0:
-        # M - 1
+        # M + 1
         if state.m < M:
             newState = State(state.m + 1, state.c, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '1 Missionary back to this side'
                 frindge.append(newState)
 
-        # M - 2
+        # M + 2
         if state.m <= M - 2:
             newState = State(state.m - 2, state.c, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '2 Missionaries back to this side'
                 frindge.append(newState)
 
-        # C - 1
+        # C + 1
         if state.c < C:
             newState = State(state.m, state.c + 1, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '1 Cannibal back to this side'
                 frindge.append(newState)
 
-        # C - 2
+        # C + 2
         if state.c <= C - 2:
             newState = State(state.m, state.c + 2, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '2 Cannibals back to this side'
                 frindge.append(newState)
 
-        # M - 1 and C - 1
+        # M + 1 and C + 1
         if state.m < M and state.c < C:
             newState = State(state.m + 1, state.c + 1, 1 - state.b)
             if isValid(state):
                 newState.prev = state
+                newState.move = '1 Missionary and 1 Cannibal back to this side'
                 frindge.append(newState)
